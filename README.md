@@ -70,3 +70,4 @@ The function `MST_color()` inside the Prim class computes the Prim's Algorithm c
 * https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-using-priority_queue-stl/
 * https://en.wikipedia.org/wiki/Prim%27s_algorithm
 * https://en.wikipedia.org/wiki/Minimum_spanning_tree
+* [Matrix Class](https://github.com/jotredi/Matrix_Class)
