@@ -27,6 +27,7 @@ public:
   matrix<X> operator+(matrix<X>);
   matrix<X> operator-(matrix<X>);
   matrix<X> operator*(matrix<X>);
+  matrix<X> operator&(matrix<X>);
   matrix<X> T();
 
   //Scalar Operations
@@ -173,6 +174,21 @@ matrix<X> matrix<X>::operator*(matrix<X> B){
     //Matrix dimenssions are not the same so we return an error message
     throw std::logic_error( "Matrix dimensions don't match" );
   }
+}
+
+//Element-wise multiplication
+template <class X>
+matrix<X> matrix<X>::operator&(matrix<X> B){
+  if((rows != B.getRows()) || (cols != B.getCols())){
+    throw std::logic_error( "Matrix dimensions don't match" );
+  }
+  matrix<X> R(rows, cols);
+  for(unsigned i=0; i<rows; ++i){
+    for(unsigned j=0; j<cols; ++j){
+      R(i,j) = M[i][j] * B(i,j);
+    }
+  }
+  return R;
 }
 
 //Matrix transpose
