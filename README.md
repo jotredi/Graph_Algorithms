@@ -49,7 +49,7 @@ This class contains the implementation of the Dijkstra's Algorithm. It makes use
 
 ## A* Algorithm
 
-A* Algorithm is an extension to the Dijkstra's algorithm by using a [heuristic](https://en.wikipedia.org/wiki/Heuristic) function in the cost calculation. The total cost of a node `n` to the goal is now defined as `f` = `g` (path cost from start to `n`) + `h` (estimated cost from `n` to the goal).
+A* Algorithm is an extension to the Dijkstra's algorithm by using a [heuristic](https://en.wikipedia.org/wiki/Heuristic) function in the cost calculation. The total cost of a node `n` to the goal is now defined as **f** = **g** (path cost from start to `n`) + **h** (estimated cost from `n` to the goal).
 
 This total cost is considered when deciding the next node to be expanded so the algorithm will expand to the node that makes more progress to the goal, leading in a faster path calculation with lower number of expansions.
 
