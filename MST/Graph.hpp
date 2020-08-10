@@ -25,13 +25,13 @@ public:
   unsigned V();
   unsigned E();
   bool adjacent(const unsigned &, const unsigned &);
-  std::list<unsigned> neighbors(const unsigned &);
-  void add(const unsigned &, const unsigned &);
+  std::vector<unsigned> neighbors(const unsigned &);
+  void add(const unsigned &, const unsigned &, std::string = "undirected");
   void del(const unsigned &, const unsigned &);
   unsigned get_node_value(const unsigned &);
   void set_node_value(const unsigned &, const unsigned &);
   T get_edge_value(const unsigned &, const unsigned &);
-  void set_edge_value(const unsigned &, const unsigned &, T);
+  void set_edge_value(const unsigned &, const unsigned &, T, std::string = "undirected");
 
   void print_Graph();
 
@@ -108,8 +108,8 @@ bool Graph<T>::adjacent(const unsigned &x, const unsigned &y){
 }
 
 template <class T>
-std::list<unsigned> Graph<T>::neighbors(const unsigned &x){
-  std::list<unsigned> y;
+std::vector<unsigned> Graph<T>::neighbors(const unsigned &x){
+  std::vector<unsigned> y;
   for (unsigned i = 0; i < nodes; ++i)
   {
     if (G(x,i)) y.push_back(i);
@@ -118,8 +118,17 @@ std::list<unsigned> Graph<T>::neighbors(const unsigned &x){
 }
 
 template <class T>
-void Graph<T>::add(const unsigned &x, const unsigned &y){
-  if (G(x,y)==0) G(x,y) = G(y,x) = 1;
+void Graph<T>::add(const unsigned &x, const unsigned &y, std::string direction){
+  if (G(x,y)==0){
+    // Directed graph
+    if (direction == "directed"){
+      G(x,y) = 1;
+    }
+    // Undirected graph
+    else{
+      G(x,y) = G(y,x) = 1;
+    }
+  }
 }
 
 template <class T>
@@ -159,8 +168,13 @@ template <class T>
 T Graph<T>::get_edge_value(const unsigned &x, const unsigned &y){return G(x,y);}
 
 template <class T>
-void Graph<T>::set_edge_value(const unsigned &x, const unsigned &y, T v){
-  G(x,y) = G(y,x) = v;
+void Graph<T>::set_edge_value(const unsigned &x, const unsigned &y, T v, std::string direction){
+  if (direction == "directed"){
+    G(x,y) = v;
+  }
+  else{
+    G(x,y) = G(y,x) = v;
+  }
 }
 
 template <class T>
