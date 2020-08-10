@@ -3,6 +3,7 @@ Implementation of algorithms on Graph data structures in C++
 
 ## Table of contents
 * [Dijkstra's Algorithm](#dijkstras-algorithm)
+* [A* Algorithm](#a-algorithm)
 * [Minimum Spanning Tree](#minimum-spanning-tree)
 
 ## Dijkstra's Algorithm
@@ -32,12 +33,12 @@ The Graph is represented using connectivity matrices but it could also be repres
 * `E()`: return the number of edges in the graph.
 * `adjacent(x, y)`: test whether there is an edge from node x to node y.
 * `neighbors(x)`: list all nodes y such that there is an edge from x to y.
-* `add(x, y)`: add to G the edge from x to y, if it is not there.
+* `add(x, y, direction)`: add to G the edge from x to y, if it is not there. The direction is "directed" or "undirected".
 * `delete(x, y)`: remove the edge from x to y, if it is there.
 * `get_node_value(x)`: return the value associated with the node x (number of nodes connected to x).
 * `set_node_value(x, a)`: set the value associated with the node x to a (a nodes connected to x).
 * `get_edge_value(x, y)`: return the value associated to the edge (x,y).
-* `set_edge_value(x, y, v)`: set the value associated to the edge (x,y) to v.
+* `set_edge_value(x, y, v, direction)`: set the value associated to the edge (x,y) to v in the corresponding direction.
 * `print_Graph()`: print the graph on the screen.
 
 ### ShortestPath Class
@@ -45,6 +46,26 @@ This class contains the implementation of the Dijkstra's Algorithm. It makes use
 
 * `path(u, w)`: find shortest path between u-w and return the sequence of vertices representing shorest path u-v1-v2-…-vn-w.
 * `path_size()`: return the path cost associated with the shortest path.
+
+## A* Algorithm
+
+A* Algorithm is an extension to the Dijkstra's algorithm by using a [heuristic](https://en.wikipedia.org/wiki/Heuristic) function in the cost calculation. The total cost of a node `n` to the goal is now defined as `f` = `g` (path cost from start to `n`) + `h` (estimated cost from `n` to the goal).
+
+This total cost is considered when deciding the next node to be expanded so the algorithm will expand to the node that makes more progress to the goal, leading in a faster path calculation with lower number of expansions.
+
+### Heuristic function 
+
+The heuristic function gives an approximation of the path cost from a node `n` to the goal. 
+
+This function could be the [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance) between the considered node and the position of the goal or other functions like the [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry) if the search space is a grid.
+
+### A_star Class
+
+The A* Algorithm is implemented in `A_star.cpp`. This algorithm searches a shortest path in a graph represented with the Graph Class defined above where each node represents an (x, y) position.
+
+* `search(graph, nodes, u , w)`: finds a shortest path from node `u` to `w` in the `graph` structure where each node (x,y) position is stored in the vector `nodes`. It returns the final cost to the goal.
+* `get_path(start, goal)`: returns path sequence of nodes from `start` to `goal`.
+* `heuristic(x, y, goal)`: returns the Euclidean distance from (x, y) to goal.
 
 ## Minimum Spanning Tree
 Implementation of a minimum spanning tree (MST) algorithm for a weighted undirected graph. Concretely, I make use of the Prim's Algorithm, which is faster in dense Graphs.
@@ -65,9 +86,10 @@ To implement this, we should compute the MST where the edge colors are a constra
 The function `MST_color()` inside the Prim class computes the Prim's Algorithm constrained by a selected color.
 
 ## Sources
-* These problems are proposed by the course [C++ For C Programmers](https://www.coursera.org/learn/c-plus-plus-a?) from the University of California, Santa Cruz.
+* [C++ For C Programmers](https://www.coursera.org/learn/c-plus-plus-a?)
 * https://en.wikipedia.org/wiki/Dijkstra's_algorithm
 * https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-using-priority_queue-stl/
+* https://en.wikipedia.org/wiki/A*_search_algorithm
 * https://en.wikipedia.org/wiki/Prim%27s_algorithm
 * https://en.wikipedia.org/wiki/Minimum_spanning_tree
 * [Matrix Class](https://github.com/jotredi/Matrix_Class)
